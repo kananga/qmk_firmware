@@ -3,7 +3,8 @@
 
 #define BASE 0      // default layer
 #define TEXTEDIT 1  // symbols
-#define MDIA 2 // media keys
+#define MDIA 2      // media keys
+#define WASD 3      // layer without mod-tap keys on wasd
 
 enum custom_keycodes {
   EPRM = SAFE_RANGE,
@@ -17,13 +18,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------------------------.   ,---------------------------------------------------------------.
  * | Esc    |   1  |   2    |   3     |   4     |   5     | Ins  |   | Pause|   6     |   7     |   8     |   9     |   0  |   -     |
  * |--------+------+--------+---------+---------+---------+------|   |------+---------+---------+---------+---------+------+---------|
- * | Tab    |   Q  |   W    |   E     |   R     |   T     | PgUp |   | PgDn |   Y     |   U     |   I     |   O     |   P  |   =     |
+ * | Tab    |   Q  |   W    |   E     |   R     |   T     | Del  |   | MO(3)|   Y     |   U     |   I     |   O     |   P  |   =     |
  * |--------+------+--------+---------+---------+---------|      |   |      |---------+---------+---------+---------+------+---------|
  * | CapLock|   A  |LAlt(S) | LCtl(D) | LSft(F) | LGui(G) |------|   |------| RGui(H) | RSft(J) | RCtl(K) | RAlt(L) |   ;  |   "     |
  * |--------+------+--------+---------+---------+---------| Enter|   | Enter|---------+---------+---------+---------+------+---------|
  * | LShift |   Z  |   X    |   C     |   V     |   B     |      |   |      |   N     |   M     |   ,     |   .     |   /  | RShift  |
  * `--------+------+--------+---------+---------+---------+------'   `----------------+---------+---------+---------+------+---------'
- *    |LCtrl| LGui | Alt    |  `~     |  L3([)  |                                     |  L1(])  |  \      | RAlt    | RGui |RCtrl |
+ *    |LCtrl| LGui | Alt    |  `~     |  L2([)  |                                     |  L1(])  |  \      | RAlt    | RGui |RCtrl |
  *    `-----------------------------------------'                                     `-------------------------------------------'
  *                                           ,--------------.             ,--------------.
  *                                           | Home | F5    |             | F11   | End  |
@@ -35,20 +36,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = LAYOUT_ergodox(
   // left hand
-  KC_ESCAPE,    KC_1,         KC_2,          KC_3,        KC_4,        KC_5,    KC_INSERT,
-  KC_TAB,       KC_Q,         KC_W,          KC_E,        KC_R,        KC_T,    KC_PGUP,
-  KC_BSPC,      KC_A,         KC_S,          KC_D,        KC_F,        KC_G,
-  KC_LSFT,      KC_Z,         KC_X,          KC_C,        KC_V,        KC_B,    KC_ENTER,
-  KC_LCTRL,     KC_QUOT,      KC_LALT,       KC_GRAVE,    LT(MDIA, KC_LBRACKET),
-                                                         /*Top center           Top right    */
-                                                           KC_HOME,             KC_F5,
-                                                                              /*Right middle */
-                                                                                KC_F8,
-                                                         /*Left btm   Center    Right btm    */
-                                                           KC_SPC,    KC_BSPC,  MO(TEXTEDIT),
+  KC_ESCAPE,    KC_1,         KC_2,          KC_3,         KC_4,         KC_5,    KC_INSERT,
+  KC_TAB,       KC_Q,         KC_W,          KC_E,         KC_R,         KC_T,    KC_DELETE,
+  KC_CAPSLOCK,  KC_A,         LALT_T(KC_S),  LCTL_T(KC_D), LSFT_T(KC_F), LGUI_T(KC_G),
+  KC_LSFT,      KC_Z,         KC_X,          KC_C,         KC_V,         KC_B,    KC_ENTER,
+  KC_LCTRL,     KC_QUOT,      KC_LALT,       KC_GRAVE,     LT(MDIA, KC_LBRACKET),
+                                                          /*Top center              Top right    */
+                                                            KC_HOME,                KC_F5,
+                                                                                  /*Right middle */
+                                                                                    KC_F8,
+                                                          /*Left btm     Center     Right btm    */
+                                                           KC_SPC,       KC_BSPACE, MO(TEXTEDIT),
   // right hand
   KC_PAUSE,     KC_6,         KC_7,          KC_8,         KC_9,         KC_0,      KC_MINS,
-  KC_PGDOWN,    KC_Y,         KC_U,          KC_I,         KC_O,         KC_P,      KC_BSLS,
+  TG(WASD),     KC_Y,         KC_U,          KC_I,         KC_O,         KC_P,      KC_BSLS,
                 RGUI_T(KC_H), RSFT_T(KC_J),	 RCTL_T(KC_K), RALT_T(KC_L), KC_SCOLON,	KC_QUOTE,
   KC_ENTER,     KC_N,         KC_M,          KC_COMM,      KC_DOT,       KC_SLASH,  KC_RSFT,
                               KC_RBRACKET,   KC_BSLASH,    KC_RALT,      KC_RGUI,   KC_RCTRL,
@@ -59,6 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*Left btm              Center        Right btm */
     KC_AUDIO_VOL_DOWN,    KC_DELETE,    KC_AUDIO_MUTE
 ),
+
+
 /* Keymap 1: Editor navigation layer
  *
  * ,-------------------------------------------------------------.   ,---------------------------------------------------------------.
@@ -106,6 +109,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*Left btm    Center        Right btm */
   KC_TRNS,      KC_TRNS,      KC_TRNS
 ),
+
+
 /* Keymap 2: Media and mouse keys
  *
  *
@@ -154,6 +159,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*Left btm      Center                Right btm */
   KC_MEDIA_STOP,  KC_MEDIA_PREV_TRACK,  KC_MEDIA_NEXT_TRACK
 ),
+
+/* Keymap 3: WASD layer
+ *
+ * ,-------------------------------------------------------------.   ,---------------------------------------------------------------.
+ * | Esc    |   1  |   2    |   3     |   4     |   5     | Ins  |   | Pause|   6     |   7     |   8     |   9     |   0  |   -     |
+ * |--------+------+--------+---------+---------+---------+------|   |------+---------+---------+---------+---------+------+---------|
+ * | Tab    |   Q  |   W    |   E     |   R     |   T     | Del  |   |      |   Y     |   U     |   I     |   O     |   P  |   =     |
+ * |--------+------+--------+---------+---------+---------|      |   |      |---------+---------+---------+---------+------+---------|
+ * | CapLock|   A  |LAlt(S) | LCtl(D) | LSft(F) | LGui(G) |------|   |------| RGui(H) | RSft(J) | RCtl(K) | RAlt(L) |   ;  |   "     |
+ * |--------+------+--------+---------+---------+---------| Enter|   | Enter|---------+---------+---------+---------+------+---------|
+ * | LShift |   Z  |   X    |   C     |   V     |   B     |      |   |      |   N     |   M     |   ,     |   .     |   /  | RShift  |
+ * `--------+------+--------+---------+---------+---------+------'   `----------------+---------+---------+---------+------+---------'
+ *    |LCtrl| LGui | Alt    |  `~     |  L2([)  |                                     |  L1(])  |  \      | RAlt    | RGui |RCtrl |
+ *    `-----------------------------------------'                                     `-------------------------------------------'
+ *                                           ,--------------.             ,--------------.
+ *                                           | Home | F5    |             | F11   | End  |
+ *                                    ,------+------+-------|             |-------+------+------.
+ *                                    |      |      | F8    |             | VolUp |      |      |
+ *                                    | Space|BkSpc |-------|             |-------| Del  | Mute |
+ *                                    |      |      | MO(0) |             | VolDn |      |      |
+ *                                    `---------------------'             `---------------------'
+ */
+[WASD] = LAYOUT_ergodox(
+  // left hand
+  KC_ESCAPE,    KC_1,         KC_2,          KC_3,         KC_4,         KC_5,    KC_INSERT,
+  KC_TAB,       KC_Q,         KC_W,          KC_E,         KC_R,         KC_T,    KC_DELETE,
+  KC_CAPSLOCK,  KC_A,         KC_S,          KC_D,         KC_F,         KC_G,
+  KC_LSFT,      KC_Z,         KC_X,          KC_C,         KC_V,         KC_B,    KC_ENTER,
+  KC_LCTRL,     KC_QUOT,      KC_LALT,       KC_GRAVE,     LT(MDIA, KC_LBRACKET),
+                                                          /*Top center              Top right    */
+                                                            KC_HOME,                KC_F5,
+                                                                                  /*Right middle */
+                                                                                    KC_F8,
+                                                          /*Left btm     Center     Right btm    */
+                                                           KC_SPC,       KC_BSPACE, TG(TEXTEDIT),
+  // right hand
+  KC_PAUSE,     KC_6,         KC_7,          KC_8,         KC_9,         KC_0,      KC_MINS,
+  TG(WASD),     KC_Y,         KC_U,          KC_I,         KC_O,         KC_P,      KC_BSLS,
+                RGUI_T(KC_H), RSFT_T(KC_J),	 RCTL_T(KC_K), RALT_T(KC_L), KC_SCOLON,	KC_QUOTE,
+  KC_ENTER,     KC_N,         KC_M,          KC_COMM,      KC_DOT,       KC_SLASH,  KC_RSFT,
+                              KC_RBRACKET,   KC_BSLASH,    KC_RALT,      KC_RGUI,   KC_RCTRL,
+  /*Top left    Top center */
+    KC_F11,     KC_END,
+  /*Left middle */
+    KC_AUDIO_VOL_UP,
+  /*Left btm              Center        Right btm */
+    KC_AUDIO_VOL_DOWN,    KC_DELETE,    KC_AUDIO_MUTE
+)
 };
 
 /*
