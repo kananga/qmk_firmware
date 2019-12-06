@@ -34,12 +34,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
 #define MATRIX_COLS 6
 
-#define MOUSEKEY_INTERVAL           20
+#define MOUSEKEY_INTERVAL           25
 #define MOUSEKEY_DELAY              50
 #define MOUSEKEY_TIME_TO_MAX        30
-#define MOUSEKEY_MAX_SPEED          3
-#define MOUSEKEY_WHEEL_DELAY        0
-#define MOUSEKEY_WHEEL_TIME_TO_MAX  30
+#define MOUSEKEY_MAX_SPEED          2
+#define MOUSEKEY_WHEEL_DELAY        1
+#define MOUSEKEY_WHEEL_TIME_TO_MAX  50
+#define MOUSEKEY_WHEEL_MAX_SPEED    1
 
 #define TAPPING_TOGGLE  1
 
@@ -99,7 +100,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 5, which is now closer to 10ms, but still plenty according to
  * manufacturer specs.
  */
-#define DEBOUNCE 6
+#define DEBOUNCE 8
 
 #define USB_MAX_POWER_CONSUMPTION 500
 
